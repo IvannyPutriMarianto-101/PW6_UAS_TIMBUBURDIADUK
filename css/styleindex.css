@@ -1,0 +1,574 @@
+:root {
+    --primary: #ca909f;
+    --bg: #212121;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: all 0.2s linear;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Poppins', 'sans-serif';
+    background-color: var(--bg);
+    color: white;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 7%;
+    /* background-color: #c98f9e44; */
+    background-color: rgba(24, 111, 101, 0.8%);
+    /* border-bottom: 1px solid rgb(95, 42, 30); */
+    position: fixed; /* agar saat di scroll posisi nya selalu di atas */
+    top: 0;
+    left: 0; /* left dan right supaya ukuran nya penuh satu layar */
+    right: 0;
+    z-index: 9999; /* agar navbar selalu diatas */
+    text-shadow: 0 3px 5px #000;
+  }
+  nav.sticky {
+    padding: 5px 100px;
+    background: var(--bg);
+  }
+  .navbar .navbar-logo {
+    font-size: 2rem; /* berarti 2 x 16px */
+    font-weight: 700;
+    color: white;
+    font-style: italic;
+  }
+  
+  .navbar .navbar-logo span {
+    color: var(--primary);
+  }
+  
+  .navbar .navbar-nav a {
+    color: white;
+    display: inline-block;
+    font-size: 1.3rem;
+    margin: 0 1rem;
+  }
+  
+  .navbar .navbar-nav a:hover {
+    color: var(--primary);
+  }
+  
+  /*animasi garis di bawah  */
+  .navbar .navbar-nav a::after {
+    content: '';
+    display: block;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.1rem solid var(--primary);
+    transform: scale(0);
+    transition: 0.2s linear;
+  }
+  
+  /*untuk memunculkan garis dibawah saat hover */
+  .navbar .navbar-nav a:hover::after {
+    transform: scaleX(0.5);
+  }
+  
+  .navbar .navbar-extra a {
+    color: white;
+    margin: 0 0.5rem;
+  }
+  
+  .navbar .navbar-extra a:hover {
+    color: var(--primary);
+  }
+  
+  #menu {
+    display: none;
+  }
+  
+  /* Navbar search form */
+  .navbar .search-form {
+    position: absolute;
+    top: 100%;
+    right: 7%;
+    background-color: white;
+    width: 30rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: 0.3s;
+  }
+  
+  .navbar .search-form.active {
+    transform: scaleY(1);
+  }
+  
+  .navbar .search-form input {
+    height: 100%;
+    width: 100%;
+    font-size: 1.6rem;
+    color: var(--primary);
+    padding: 1rem;
+  }
+  .navbar .search-form label {
+    cursor: pointer;
+    font-size: 2rem;
+    margin-right: 1.5rem;
+    color: var(--primary);
+  }
+  
+  /* Hero Section */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  /* .hero::after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(24, 111, 101) 5%, rgba(255, 255, 255, 0) 65%);
+  } */
+  .hero .content {
+    padding: 1.4rem 7%;
+    max-width: 60rem;
+  }
+  
+  .hero .content h1 {
+    font-size: 4em;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+    line-height: 1.2;
+  }
+  
+  .hero .content h1 span {
+    color: var(--primary);
+  }
+  
+  .hero .content p {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    line-height: 1.4;
+    font-weight: 100;
+    text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+  }
+  
+  .hero .content .cta {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 1rem 3rem;
+    font-size: 1.4rem;
+    color: white;
+    background-color: var(--primary);
+    border-radius: 1rem;
+    box-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+  }
+  
+  /* Biodata Section */
+  .bio {
+    padding: 7rem 7% 1.4rem;
+  }
+  
+  .bio-name h2 {
+    position: relative;
+    height: auto;
+    width: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 7% 0 2% 0;
+    text-align: center;
+    font-size: 2.8em;
+    font-weight: 650;
+    letter-spacing: 1.5px;
+    color: white;
+    border-left: 5px solid #e6ccd2;
+    border-right: 5px solid #e6ccd2;
+    /* background: rgb(0,0,0,0.05); */
+  }
+  
+  .bio-name span {
+    color: #e6ccd2;
+  }
+  .bio h2 {
+    margin-bottom: 1rem;
+  }
+  .bio p {
+    text-align: center;
+    max-width: 30rem;
+    margin: auto;
+    font-weight: 200;
+    line-height: 1.6;
+    font-size: 1.5rem;
+  }
+  
+  .bio .row {
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+    justify-content: center;
+  }
+  
+  .bio .row .bio-card {
+    box-sizing: border-box;
+    text-align: center;
+    border: 2px solid #e6ccd2;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+  }
+  
+  .bio .bio-icons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .bio .bio-icons a {
+    width: 4rem;
+    height: 4rem;
+    color: white;
+    margin: 0.3rem;
+    border: 1px solid #e6ccd2;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .bio .bio-icons a:hover {
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+  .bio .row .bio-card img {
+    height: 25rem;
+    border-radius: 2px;
+    margin-top: 1.5rem;
+    /* object-fit: cover; */
+  }
+  
+  .bio .row .bio-card-title {
+    margin-top: 1rem auto 0.5 rem;
+    font-size: 20px;
+    color: #e6ccd2;
+    text-shadow: 0 3px 5px #000;
+  }
+  
+  .bio .row .album-card-title {
+    margin-top: 1rem auto 0.5 rem;
+    margin-bottom: 3rem;
+    font-size: 20px;
+    text-shadow: 0 3px 5px #000;
+  }
+  
+  /* Recap  */
+  .gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 0 auto;
+  }
+  .gallery a {
+    height: 200px;
+    width: 300px;
+    margin: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 3px 5px #000;
+  }
+  
+  .gallery a img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .gallery a img:hover {
+    transform: scale(1.1);
+  }
+  .recap h2 {
+    position: relative;
+    height: auto;
+    width: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 7% 0 2% 0;
+    text-align: center;
+    font-size: 2.8em;
+    font-weight: 650;
+    letter-spacing: 1.5px;
+    color: white;
+    border-left: 5px solid #e6ccd2;
+    border-right: 5px solid #e6ccd2;
+    /* background: rgb(0,0,0,0.05); */
+  }
+  .recap p {
+    position: relative;
+    height: auto;
+    width: 100%;
+    text-align: center;
+    font-weight: 300;
+    font-size: 1.8em;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+  }
+  
+  .recap h2 span {
+    color: #e6ccd2;
+  }
+  .recap h2 {
+    margin-bottom: 1rem;
+  }
+  
+  /* Footer  */
+  footer {
+    background-color: var(--primary);
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  footer .socials {
+    padding: 0;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  footer .socials a {
+    color: white;
+    margin: 1rem;
+  }
+  footer .socials a:hover,
+  footer .links a:hover {
+    color: var(--bg);
+  }
+  
+  footer .links {
+    margin-bottom: 1.4rem;
+  }
+  footer .links a {
+    color: white;
+    padding: 1rem 1rem;
+  }
+  footer .credit {
+    font-size: 0.8rem;
+  }
+  
+  footer .credit a {
+    color: var(--bg);
+    font-weight: 700;
+  }
+  
+  /* Modal Box */
+  /* Item Detail */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 135%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .modal-container {
+    position: relative;
+    background-color: white;
+    color: var(--bg);
+    margin: 15% auto;
+    padding: 1.2rem;
+    border: 1px solid #666;
+    width: 90%;
+    height: 90%;
+    animation: animateModal 0.5s;
+  }
+  
+  /* Modal  Animasi  */
+  @keyframes animateModal {
+    from {
+      top: -300px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
+    }
+  }
+  
+  .modal-container .close-icon {
+    position: absolute;
+    right: 1rem;
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  
+  .modal-content img {
+    height: 25rem;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .modal-content .bio-content h3 {
+    font-size: 1.7rem;
+    line-height: 1.8rem;
+    margin-top: 1.2rem;
+  }
+  .modal-content .bio-content p {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    margin-top: 1.2rem;
+  }
+  
+  .modal-content a {
+    display: flex;
+    gap: 1rem;
+    width: 12rem;
+    background-color: var(--primary);
+    color: white;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    box-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+    padding: 1rem 1.6rem;
+  }
+  .modal-content .bio-content h1 {
+    color: #ca909f;
+    padding-left: 25rem;
+    text-shadow: 0 1px 2px #000;
+  }
+  
+  /* Media Queries */
+  
+  /* Leptop */
+  @media (max-width: 1366px) {
+    html {
+      font-size: 75%;
+    }
+  }
+  /* Tablet */
+  @media (max-width: 768px) {
+    html {
+      font-size: 62%;
+    }
+  
+    #menu {
+      display: inline-block;
+    }
+  
+    .navbar .navbar-nav {
+      position: absolute;
+      top: 100%; /* agar menempel keatas*/
+      right: -100%; /* agar keluar dari layar*/
+      background-color: white;
+      width: 30rem;
+      height: 100vh;
+      transition: 0.3s;
+    }
+  
+    .navbar .navbar-nav.active {
+      right: 0;
+    }
+  
+    .navbar .navbar-nav a {
+      color: var(--bg);
+      display: block; /* membuat elemen turun ke bawah*/
+      margin: 1.5rem;
+      padding: 0.5rem;
+      font-size: 2rem;
+    }
+    /* membuat garis bawah bergeser ke kiri*/
+    .navbar .navbar-nav a::after {
+      transform-origin: 0 0;
+    }
+    .navbar .navbar-nav a:hover::after {
+      transform: scaleX(0.2);
+    }
+  
+    .navbar .search-form {
+      width: 90%;
+      right: 2rem;
+    }
+  
+    .about .row {
+      flex-wrap: wrap;
+    }
+  
+    .about .row .about-img img {
+      height: 24rem;
+      object-fit: cover;
+      object-position: center;
+    }
+  
+    .about .row .content {
+      padding: 0;
+    }
+  
+    .about .row .content h3 {
+      margin-top: 1rem;
+      font-size: 2rem;
+    }
+  
+    .about .row .content p {
+      font-size: 1.6rem;
+    }
+    .contact .row {
+      flex-wrap: wrap;
+    }
+  
+    .contact .row map {
+      height: 30rem;
+    }
+  
+    .contact .row form {
+      padding-top: 0;
+    }
+    .modal-content {
+      flex-wrap: wrap;
+    }
+    .modal {
+      width: 100%;
+      height: 100%;
+    }
+    .modal-container {
+      width: 100%;
+      height: 100%;
+      background-color: white;
+    }
+  }
+  
+  /* Mobile Phone */
+  @media (max-width: 450px) {
+    html {
+      font-size: 55%;
+    }
+    .modal {
+      width: 100%;
+      height: 100%;
+    }
+    .modal-container {
+      width: 100%;
+      height: 180%;
+    }
+  }
+  
