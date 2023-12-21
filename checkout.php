@@ -18,7 +18,9 @@ if(isset($_POST['order_btn'])){
     $country = $_POST['country'];
     $pin_code = $_POST['pin_code'];
 
-   $cart_query = mysqli_query($conn, "SELECT * FROM cart");
+   $user_id = $_SESSION['user_id'];
+   $cart_query = mysqli_query($conn, "SELECT * FROM cart WHERE user_id = ?");
+   $cart_query->execute([$user_id]);
    $price_total = 0;
    if(mysqli_num_rows($cart_query) > 0){
       while($product_item = mysqli_fetch_assoc($cart_query)){
@@ -27,6 +29,8 @@ if(isset($_POST['order_btn'])){
          $price_total += $product_price;
       };
    };
+   $price_total = 0;
+   $product_name = [];
 
    $total_product = implode(', ',$product_name);
    $detail_query = mysqli_query($conn, "INSERT INTO orders(name,number, email, method, flat, street, city, province, country, pin_code, total_product,  price_total) VALUES('$name','$number','$email','$method','$flat','$street','$city','$province','$country','$pin_code','$total_product','$price_total')") or die('query failed');
@@ -94,7 +98,7 @@ if(isset($_POST['order_btn'])){
 
                 <?php
                 // Establish a connection to MySQL using MySQLi
-                $con = new mysqli('localhost','id21684036_epicblinkzz','Cicakmati15*','id21684036_db_epicblinkzz');
+                $con = new mysqli('localhost', 'root', '', 'db_epicblinkzz');
 
                 // Check the connection
                 if ($con->connect_error) {
@@ -142,35 +146,50 @@ if(isset($_POST['order_btn'])){
 
    <div class="display-order">
     <?php
-    
-    $conn = new mysqli('localhost','id21684036_epicblinkzz','Cicakmati15*','id21684036_db_epicblinkzz');
+    // Make sure you have a valid database connection
+    $mysqli = new mysqli('localhost','root','','db_epicblinkzz');
 
     // Check the connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    if ($mysqli->connect_error) {
+        die("Connection failed: " . $mysqli->connect_error);
     }
 
-    $select_cart = mysqli_query($conn, "SELECT * FROM `cart`");
-    $total = 0;
-    $grand_total = 0;
+    // Check if user_id is set in the session
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
 
-    if (mysqli_num_rows($select_cart) > 0) {
-        while ($fetch_cart = mysqli_fetch_assoc($select_cart)) {
-            $total_price = number_format($fetch_cart['price'] * $fetch_cart['quantity']);
-            $grand_total = $total += $total_price;
-            ?>
-            <span><?= $fetch_cart['name']; ?>(<?= $fetch_cart['quantity']; ?>)</span>
-            <?php
+        try {
+            $select_cart = $mysqli->prepare("SELECT * FROM cart WHERE user_id = ?");
+            $select_cart->bind_param("i", $user_id);
+            $select_cart->execute();
+            $result = $select_cart->get_result();
+
+            $total = 0;
+            $grand_total = 0;
+
+            if ($result->num_rows > 0) {
+                while ($fetch_cart = $result->fetch_assoc()) {
+                    $total_price = number_format($fetch_cart['price'] * $fetch_cart['quantity']);
+                    $grand_total += $total_price;
+                    echo "<span>{$fetch_cart['name']} ({$fetch_cart['quantity']})</span>";
+                }
+            }
+        } catch (mysqli_sql_exception $e) {
+            echo "Error: " . $e->getMessage();
+        } finally {
+            // Close the statement after finishing
+            $select_cart->close();
+            // Close the connection after finishing
+            $mysqli->close();
         }
     } else {
-        echo "<div class='display-order'><span>Your cart is empty!</span></div>";
+        echo "<div class='display-order'><span>Keranjang Anda kosong!</span></div>";
     }
-
-    // Close the MySQLi connection
-    $conn->close();
     ?>
+
     <span class="grand-total"> Grand total: $<?= $grand_total; ?>/- </span>
 </div>
+
 
 
       <div class="flex">
